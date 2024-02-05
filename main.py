@@ -25,7 +25,11 @@ def main():
         name = organization["properties"]["CompanyMetadata"]["name"]
         address = organization["properties"]["CompanyMetadata"]["address"]
         time = organization["properties"]["CompanyMetadata"]["Hours"]["text"]
-        distance = round(d)
+        distance = round(lonlat_distance((lon, lat), (org_lon, org_lat)))
+
+        snippet = f"Название:\t{name}\nАдрес:\t{address}\nВремя работы:\t{time}\n" \
+                  f"Расстояние:\t{distance}м."
+        print(snippet)
     else:
         print('No data')
 
