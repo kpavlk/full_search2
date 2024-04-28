@@ -1,6 +1,6 @@
 import pygame
 import requests
-import shutil
+import sys
 import os
 
 
@@ -13,11 +13,9 @@ def show_map(ll_spn=None, map_type="map", add_params=None):
     if add_params:
         map_request += "&" + add_params
     response = requests.get(map_request)
-
     map_file = "map.png"
     with open(map_file, "wb") as file:
-        for chunk in response.iter_content():
-            file.write(chunk)
+        file.write(response.content)
 
     pygame.init()
     screen = pygame.display.set_mode((600, 450))

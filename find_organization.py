@@ -10,11 +10,13 @@ def find_business(ll, spn, request, locale="ru_RU"):
         "lang": locale,
         "ll": ll,
         "spn": spn,
-        "type": "biz"
+        "type": "biz",
+        "results": "10"
     }
     response = requests.get(search_api_server, params=params)
     if not response:
         raise RuntimeError()
+
     response_json = response.json()
     organizations = response_json["features"]
     return organizations
@@ -23,4 +25,4 @@ def find_business(ll, spn, request, locale="ru_RU"):
 def get_business(ll, spn, request, locale="ru_RU"):
     organizations = find_business(ll, spn, request)
     if len(organizations):
-        return organizations[0]
+        return [organizations[i] for i in range(len(organizations))]
